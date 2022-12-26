@@ -1,0 +1,40 @@
+TPS - Oct 2022
+
+- predict the probability of each team scoring within the next 10 seconds of the game given a snapshot from a Rocket League match
+- dealing with big data
+- evaluation: log loss (the smaller the better)
+
+V1
+
+Scaling down the dataset:
+- removing features:
+	- game_num, event_id, event_time
+	- boost_timer, team_scoring_next, player_scoring_next
+
+- removing rows: 
+	- check out the time series in the training 
+		- data point every 0.1 seconds (10 frames per second) -> keep only one point in X (20) rows
+	- check out the rows with missing entries in training
+
+
+- wrangling:
+	- get coordinates of the goal posts [0, -104, 1.3] and [0, 104, 1.3]
+	- fill NaN values with coordinates of the goal post
+	- get difference between goal posts and ball
+	- get difference between ball and each player
+
+- LightGBM
+
+V2 - Clean code & try CatBoost
+
+V3 - Try different model hyperparameters
+
+V4 - Train on more data (train_0, train_1, train_2)
+
+V5 - Try different snapshot intervals (40)
+
+V6 - Train on all data
+
+V7 - LGBM Classifier
+
+V8 - Hyperparameters tuning
