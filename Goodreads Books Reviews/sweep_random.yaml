@@ -1,0 +1,36 @@
+# The program to run
+program: train.py
+
+# Method can be grid, random or bayes
+method: random
+
+# Project this sweep is part of
+project: Goodreads Books Reviews
+entity: d-a-pop
+
+# Metric to optimize
+metric:
+  name: validation_macroF1
+  goal: maximize
+
+
+# Parameters space to search
+parameters:
+  n_estimators:
+    value: 150
+  boosting_type:
+    value: "gbdt"
+  learning_rate:
+    value: 0.1
+  random_state:
+    value: 42
+  num_leaves:
+    values: [31, 36, 41]
+  colsample_bytree:
+    values: [1.0, 0.9]
+  subsample:
+    values: [1.0, 0.9]
+  reg_lambda:
+    values: [0.0, 0.01]
+
+

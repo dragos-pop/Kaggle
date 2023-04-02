@@ -1,0 +1,69 @@
+Goodreads Books Review Rating Prediction
+
+Ideas:
+- date processing
+- missing entries
+	- read_at = added_at
+	- started_at = read_at - average_read_duration
+- sentiment analysis based on the review_text feature
+- spoiler feature
+
+=======
+- inspiration from Kaggle code and discussions
+	- review length, correlation sa-rating, plot rating vs review length, correlation heat map
+
+=======
+- split the train data in train and validation
+- create data_split artifact
+- process train data
+- additional features 
+- define process(dataset) function and apply it to validation and test
+- create data_processed artifact
+- sentiment analysis -> postponed (takes too long)
+- convert book_id to object (.astype('object'))
+
+=======
+- train baseline model (LightGBM)
+	- try lgb.classes, lgb.evals_results_, lgb.score()
+	- Wandb.config = lgb.get_params()
+	- add predictions val data (wandb.log({"pred_table":table}))
+	- add data processing steps done after the 3rd notebook
+- LightGBM increase n_iterations and continue training
+- LightGBM ht
+	- boosting type
+	- lr
+	- random15
+
+=======
+Ideas:
+- rerun the processing on the original test data
+- make sure the encoding of ids are the same
+
+=======
+- retry SA
+- import BERT and apply transfer learning (add a softmax layer and train it on top, freezing the rest) - data too large => tokenization OOM
+- CatBoost Classifier
+
+- normalize rating by book and user
+- try the other data set https://sites.google.com/eng.ucsd.edu/ucsdbookgraph/reviews?authuser=0
+
+
+Wandb Effective MLOps Certification
+	A1:
+1) Pick a problem and a dataset - Goodreads rating prediction
+2) Log your dataset as an Artifact - raw_data, data_split, data_processed1
+3) Visualize your data with a Table - raw data EDA
+4) Develop a simple baseline and log it as an Experiment - baseline_model
+5) Share your baseline result via a W&B Report in #course discord channel - https://api.wandb.ai/links/d-a-pop/h3rcminj
+
+	A2:
+1) Improve your baseline model by running more experiments - +n_iter (0.02)
+*) Run a hyperparameter sweep - lr, boosting_type, random5
+2) Perform analysis and share your insights via a W&B report in #course discord channel (full sweep results, retrained model - predictions and charts) - https://api.wandb.ai/links/d-a-pop/sp7mn94r
+
+	A3:
+1) Validate the data partitioning approach in your project - split, data leakage
+2) Decide on evaluation metrics - f1 (picked by the competition), no threshold provided
+*) Create a registered model and link your model to it - LGBM GBR
+3) Perform analysis and share your insights via a W&B report in #course discord channel - https://wandb.ai/d-a-pop/Goodreads%20Books%20Reviews/reports/Assignment-3--VmlldzozOTQyOTg1?accessToken=fhyk71qw8wnmhmgabo4jjc8poe4d6jrunnznwkk4vtyirwz8iuv58vlp7at1qqfd
+

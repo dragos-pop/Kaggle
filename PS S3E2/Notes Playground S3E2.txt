@@ -1,0 +1,84 @@
+2) Playground Series Season 3, Episode 2
+
+- predict the probability of having a stroke given some clinical features about each patient
+- 11 clinical features for predicting stroke events (e.g. gender, BMI, average glucose level, smoker, ever married)
+- ROC AUC (the larger the better)
+
+
+V1
+- map binary features (ever_married, Residence_type) to 0 and 1
+- one-hot-encoding (gender, work_type, smoking_status)
+- check correlations with target
+- LightGBM regressor
+
+V2
+- LigthGBM classifier
+
+V3
+- LigthGBM classifier (predict_proba)
+
+V4
+- look for acceptable ranges in numerical features
+	- create (extra) bins for the numeric features
+		- avg glucose level -> diabetic / pre diabetic / non diabetic
+		- bmi -> underweight / healthy / overweight / obese / extremely obese / irregular
+- correlations (age -> work)
+
+V5
+- lightgbm regression with values bounded in [0, 1]
+
+============================
+Check Kaggle code & discussions for ideas
+	- from sklearn.metrics import roc_auc_score
+	- from sklearn.model_selection import StratifiedKFold
+	- make smoking ordinal (never smoked, unknown, smokes, formerly smoked)
+	- imbalanced dataset -> 
+		1) SMOTE: add midpoints between nearby minority class data points
+sm = SMOTE(random_state=42)
+SVMSMOTE -> SMOTE with SVM to pick the new points 
+X_res, y_res = sm.fit_resample(X, y)
+		SMOTE to oversample the positive/minority class (from imblearn.over_sampling import SMOTE; x_train_oversampled, y_train_oversampled = SMOTE(random_state=2023, sampling_strategy=0.05)); https://www.kaggle.com/code/craigmthomas/play-s3e2-eda-models
+		2) weighting the minority class
+	- fill the missing BMI in the original dataset (mean/impute) and add dummy feature (generated)
+	- dummy feature age < 1
+	- LGBMClassifier (metric="auc")
+	- use cat_features instead of one-hot-encoding
+	- CatBoostClassifier + StratifiedKFold https://www.kaggle.com/code/abdoulayebalde/pss3-episode-2-eda-catboost-score-0-8669
+============================
+
+V6
+- Smoking status -> ordinal (never smoked, unknown, smokes, formerly smoked)
+- LGBMClassifier.fit(eval_metric=roc_auc_score)
+
+V7
+- incorporate the original "Stroke prediction" dataset https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset (5110 obs)
+	- fill the missing BMI in the original dataset (mean) and add dummy feature (generated)
+
+V8
+- weighting the minority class -> LGBMClassifier(class_weight="balanced")
+
+V9
+- SMOTE
+
+V10
+- SVM SMOTE
+
+V11
+- catboost regression bounded to [0, 1]
+
+V12
+- catboost classification (predict_proba)
+
+V13
+- catboost classification
+
+V14
+- hyperparameter tuning
+
+V15
+- extensive hyperparameter tuning
+
+============================
+- predict "unknown" smoking status based on other variables	
+- fill in missing "bmi" instances in the original dataset with impute
+

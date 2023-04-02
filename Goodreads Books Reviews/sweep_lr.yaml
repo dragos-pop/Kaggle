@@ -1,0 +1,22 @@
+# The program to run
+program: train.py
+
+# Method can be grid, random or bayes
+method: grid
+
+# Project this sweep is part of
+project: Goodreads Books Reviews
+entity: d-a-pop
+
+# Metric to optimize
+metric:
+  name: validation_macroF1
+  goal: maximize
+
+
+# Parameters space to search
+parameters:
+  learning_rate:
+    values: [0.5, 0.1, 0.05, 0.01, 0.005, 0.001]
+  n_estimators:
+    value: 150
