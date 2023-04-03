@@ -28,7 +28,7 @@
 - Evaluation Metric: F1 score
 - Algorithm: LightGBM Classifier (predict_proba), CatBoost Classifier (predict_proba)
 - Result: 0.39318 (187/261 - Top 72%)
-- Key insights: classifier.predict_proba() generally used for ordinal regression
+- Key insight: classifier.predict_proba() generally used for ordinal regression
 
 ## 4) Competition Name
 - Period: Month Year - Month Year
